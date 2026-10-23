@@ -1,0 +1,25 @@
+column_name,description,data_type,suggested_use
+encounter_id,Unique encounter identifier in the source-generated rows; exact duplicate records intentionally repeat it,Text,Identifier; use to detect duplicate encounters
+patient_id,Synthetic patient identifier; patients can have multiple encounters,Text,Count distinct patients and repeat visits
+admission_date,Date of hospital admission,Date (YYYY-MM-DD),"Trend analysis by month, quarter, year"
+discharge_date,Date of discharge,Date (YYYY-MM-DD),Length-of-stay validation and discharge trends
+age,Patient age in years,Numeric; years,Age bands and department comparisons
+gender,Self-reported or recorded gender category,Category,Compare utilization across categories; account for missingness
+city,Patient city/area grouping,Category,Geographic utilization patterns
+blood_type,Recorded blood type,Category,Data-quality practice; not a diagnosis or risk label
+department,Hospital department responsible for encounter,Category,"Department volume, cost, length of stay"
+diagnosis,Recorded primary diagnosis category,Category,Diagnosis mix and associated billing
+treatment_type,Broad treatment category,Category,Treatment mix and average cost
+admission_type,"Emergency, urgent, or elective admission",Category,Urgency mix and cost comparisons
+insurance_type,Broad payer/coverage category,Category,Billing patterns by payer group
+length_of_stay_days,Length of stay in days,Integer; days,Average/median stay and outlier review
+billing_amount_inr,Synthetic billed amount in Indian rupees,Numeric; INR,"Total/average billing, cost drivers; not actual hospital charges"
+test_result,"Broad result status, not clinical measurements",Category,Test result distribution and missingness
+readmission_within_30_days,Synthetic Yes/No indicator for readmission within 30 days,Category; Yes/No,Readmission rate by department/diagnosis; not for clinical decisions
+bmi,Synthetic body mass index,Numeric; kg/m²,Distribution and missing-value analysis
+heart_rate_bpm,Synthetic heart rate,Numeric; beats/min,Descriptive statistics and outlier checks
+systolic_bp_mmhg,Synthetic systolic blood pressure,Numeric; mmHg,Distribution and range validation
+diastolic_bp_mmhg,Synthetic diastolic blood pressure,Numeric; mmHg,Distribution and range validation
+glucose_mg_dl,Synthetic glucose measurement,Numeric; mg/dL,"Distribution, missingness, and exploratory comparisons"
+total_cholesterol_mg_dl,Synthetic total cholesterol measurement,Numeric; mg/dL,Distribution and exploratory comparisons
+patient_satisfaction_score,Synthetic satisfaction score from 1 to 5,Numeric; ordinal,Average score and satisfaction by department

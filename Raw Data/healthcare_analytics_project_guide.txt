@@ -1,0 +1,71 @@
+HEALTHCARE DATA ANALYTICS PROJECT — DATASET GUIDE
+
+Files
+- healthcare_analytics_100k.csv: 100,000 rows including intentionally duplicated rows.
+- healthcare_data_dictionary.csv: column definitions and suggested uses.
+
+IMPORTANT
+This is entirely synthetic data for learning and portfolio practice. It does not contain real patient records and must not be used for clinical decisions. Billing amounts and clinical measurements are simulated, not validated medical data.
+
+DATA QUALITY FEATURES
+- 100,000 total rows.
+- 1,000 exact duplicate rows were added intentionally (approximately 1%).
+- Missing values are intentionally present in several demographic, insurance, test, vital-sign, and satisfaction fields.
+- Dates span 2023-01-01 through 2026-09-30 for admission dates.
+- Patient IDs may recur across multiple encounters.
+- Encounter IDs repeat where exact duplicate records were inserted.
+
+SUGGESTED BUSINESS QUESTIONS
+1. Which departments have the highest encounter volume?
+2. What are total and average billed amounts by department, diagnosis, and insurance type?
+3. Which diagnoses are associated with the longest average length of stay?
+4. How do emergency, urgent, and elective admissions differ in cost and stay duration?
+5. What is the synthetic 30-day readmission rate by department and diagnosis?
+6. How does patient satisfaction vary by department and admission type?
+7. Which cities contribute the most encounters and total billing?
+8. What is the monthly trend in encounters, billing, and average length of stay?
+9. What percentage of records have missing values in each column?
+10. How many exact duplicate rows and repeated encounter IDs exist?
+11. Are there outliers or invalid values in age, length of stay, billing, BMI, heart rate, blood pressure, glucose, or cholesterol?
+12. How do age groups differ in department usage and length of stay?
+
+SUGGESTED ANALYSIS WORKFLOW
+1. Python / Pandas:
+   - Load CSV, inspect shape, dtypes, null counts, and descriptive statistics.
+   - Identify exact duplicates with df.duplicated().sum().
+   - Inspect repeated encounter_id values and decide a documented deduplication rule.
+   - Parse dates and validate discharge_date >= admission_date.
+   - Check value ranges and category spelling/consistency.
+   - Document a missing-data strategy; do not blindly replace all nulls with zero.
+   - Create derived fields such as admission_month, age_group, and cost_per_day.
+   - Use groupby, pivot tables, and visualizations to answer business questions.
+
+2. MySQL:
+   - Import CSV into a staging table.
+   - Set appropriate data types and handle empty CSV fields as NULL.
+   - Profile nulls, duplicate rows, repeated IDs, and invalid date/range values.
+   - Build analytical queries using GROUP BY, CASE, JOINs, CTEs, and window functions.
+
+3. Excel:
+   - Use Power Query to inspect types, nulls, duplicate rows, and inconsistent categories.
+   - Create PivotTables for department, diagnosis, city, and monthly trends.
+   - Use charts and conditional formatting for KPI reporting.
+
+4. Power BI:
+   - Create KPI cards: total encounters, distinct patients, total billing, average billing,
+     average length of stay, readmission rate, and average satisfaction.
+   - Add trend charts by month, bar charts by department/diagnosis, and slicers for date,
+     city, department, admission type, and insurance type.
+   - Clearly label all results as synthetic and avoid clinical recommendations.
+
+SUGGESTED KPIs
+- Total encounters = row count after the chosen quality-cleaning policy
+- Distinct patients = distinct patient_id count
+- Total billed amount = sum of billing_amount_inr
+- Average length of stay = average length_of_stay_days
+- Readmission rate = Yes readmissions / non-null readmission records
+- Missingness rate = null count / total rows for each column
+- Duplicate rate = exact duplicate rows / total rows
+
+NOTE
+Because exact duplicate rows are included on purpose, KPIs calculated before cleaning may differ from KPIs after cleaning. Record your cleaning decisions in the project documentation.
